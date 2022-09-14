@@ -1,63 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
+ 
 <body>
-
+    <script>
+        (function () {
+            var a_idx = 0;
+            window.onclick = function (event) {
+                var a = new Array("❤覃佳欣❤", "❤覃佳欣❤", "❤覃佳欣❤", "❤覃佳欣❤", "❤覃佳欣❤", "❤覃佳欣❤", "❤覃佳欣❤", "❤覃佳欣❤", "❤覃佳欣❤",
+                    "❤覃佳欣❤", "❤覃佳欣❤", "❤覃佳欣❤");
+ 
+                var heart = document.createElement("b"); //创建b元素
+                heart.onselectstart = new Function('event.returnValue=false'); //防止拖动
+ 
+                document.body.appendChild(heart).innerHTML = a[a_idx]; //将b元素添加到页面上
+                a_idx = (a_idx + 1) % a.length;
+                heart.style.cssText = "position: fixed;left:-100%;"; //给p元素设置样式
+ 
+                var f = 16, // 字体大小
+                    x = event.clientX - f / 2, // 横坐标
+                    y = event.clientY - f, // 纵坐标
+                    c = randomColor(), // 随机颜色
+                    a = 1, // 透明度
+                    s = 1.2; // 放大缩小
+ 
+                var timer = setInterval(function () { //添加定时器
+                    if (a <= 0) {
+                        document.body.removeChild(heart);
+                        clearInterval(timer);
+                    } else {
+                        heart.style.cssText = "font-size:16px;cursor: default;position: fixed;color:" +
+                            c + ";left:" + x + "px;top:" + y + "px;opacity:" + a + ";transform:scale(" +
+                            s + ");";
+ 
+                        y--;
+                        a -= 0.016;
+                        s += 0.002;
+                    }
+                }, 15)
+ 
+            }
+            // 随机颜色
+            function randomColor() {
+ 
+                return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math
+                .random() * 255)) + ")";
+ 
+            }
+        }());
+    </script>
 </body>
-
+ 
 </html>
-<script>
-    let webLog = {}
-    let userAgent = navigator.userAgent
-    console.log(userAgent);
-    document.write(userAgent+'<br><br>')
-    // 获取微信版本
-    let m1 = userAgent.match(/MicroMessenger.*?(?= )/)
-    if (m1 && m1.length > 0) {
-        webLog.wechat = m1[0]
-    }
-    // 苹果手机
-    if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
-        // APP       Version 浏览器       MicroMessenger 微信/WebView
-        // if (userAgent.match(/Version/i) == null && userAgent.match(/MicroMessenger/i) == null) {
-        // 获取设备名
-        if (userAgent.includes('iPad')) {
-            webLog.device = 'iPad'
-        } else {
-            webLog.device = 'iPhone'
-            document.write(webLog.device+'<br><br>')
-        }
-        // 获取操作系统版本
-        m1 = userAgent.match(/iPhone OS .*?(?= )/)
-        if (m1 && m1.length > 0) {
-            webLog.system = m1[0]
-            document.write(webLog.system+'<br><br>')
-        }
-        // }
-    }
-    // 安卓手机
-    if (userAgent.includes('Android')) {
-        // 获取设备名
-        m1 = userAgent.match(/Android.*; ?(.*(?= Build))/)
-        console.log(m1, '111');
-        if (m1 && m1.length > 1) {
-            webLog.device = m1[1]
-            document.write(webLog.device+'<br><br>')
-        }
-        // 获取操作系统版本
-        m1 = userAgent.match(/Android.*?(?=;)/)
-        if (m1 && m1.length > 0) {
-            webLog.system = m1[0]
-            document.write(webLog.system+'<br><br>')
-        }
-    }
-    console.log(webLog);
-
-</script>
+————————————————
+版权声明：本文为CSDN博主「燕穗子博客」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/m0_64346035/article/details/124436138
