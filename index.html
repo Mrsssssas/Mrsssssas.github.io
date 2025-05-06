@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>特别的告白  --11</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(270deg, #ff7e5f, #feb47b, #ff7e5f, #feb47b, #ff499e, #ff6ad5, #ff7e5f);
+      background-size: 800% 800%;
+      animation: rainbowBackground 30s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff; /* 文字颜色 */
+    }
+
+    @keyframes rainbowBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .message {
+      max-width: 600px;
+      margin: 50px auto;
+      line-height: 1.6;
+      text-align: center;
+      font-size: 2em; /* 调整字体大小 */
+    }
+
+    .heart {
+      color: red; /* 心形颜色 */
+      font-size: 10rem; /* 心形大小 */
+      display: inline-block;
+      animation: heartBounce 1s ease infinite;
+    }
+
+    @keyframes heartBounce {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+    }
+	
+	
+	
+	
+	
+	
+
+
+
+	
+  </style>
+</head>
+<body>
+  <div class="message">
+    <div class="heart" id="loveHeart" onclick="handleDoubleClick()"  >❤️</div>
+    <pre  id="loveMessage" ></pre>
+
+
+
+  </div>
+</body>
+<script>
+function handleDoubleClick() {
+	// 要显示的情话内容
+  const loveText = `To哈尼：👏宝宝，日历里的今天是我们相识的第一天哟！也是我们的第365天！因为你的出现我知道了......男人的棒棒有多大，屁屁该往哪里插～爽了你就抿嘴巴，不爽你就沉默不说话，哄我你就：11别生气宝宝我错啦，重复那几句我气但也没办法，我呢小气你要心眼大！肚量大11夸，日子指定甜啦啦！教你个办法：给公主请罪＋罚5块俸禄就好啦记得不要害怕不说话，我最最最爱你啦～你现在已经成为我心里不可替代的一部分了，我们互相主导着对方的情绪，牵动着对方的心弦，彼此之间拥有着最珍贵的情感，我想和你一起守护它。给他们添砖加瓦盖个大别墅，回来咱俩住里天天造哇哇嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿一个嘿一次我要好多嘿嘿嘿～`;
+
+  // 创建心形的函数
+  function generateHeartText(text) {
+    const lines = [];
+    const width = 40;
+    const height = 20;
+
+    for (let y = 0; y < height; y++) {
+      let line = '';
+      for (let x = 0; x < width; x++) {
+        const dx = (x - width / 2) / 2;
+        const dy = y - height / 2;
+        const inHeart = (dx * dx + dy * dy - Math.pow(Math.sqrt(dx * dx + dy * dy) - 7, 2)) <= 49;
+        if (inHeart && text.length > 0) {
+          line += text[0];
+          text = text.slice(1);
+        } else {
+          line += ' ';
+        }
+      }
+      lines.push(line);
+    }
+
+    return lines.join('\n');
+  }
+  
+  // 设置心形文字
+  document.getElementById('loveMessage').textContent = generateHeartText(loveText);
+  document.getElementById('loveHeart').textContent = '';
+}
+
+// 设定一个阈值，当超过这个值时认为发生了晃动
+    const SHAKE_THRESHOLD = 3000;
+    let lastUpdate = 0;
+    let x = y = z = lastX = lastY = lastZ = 0;
+
+    function deviceShaken(event) {
+        const currentTime = new Date().getTime();
+        if ((currentTime - lastUpdate > 100)) {
+            const diffTime = currentTime - lastUpdate;
+            lastUpdate = currentTime;
+
+            x = event.accelerationIncludingGravity.x;
+            y = event.accelerationIncludingGravity.y;
+            z = event.accelerationIncludingGravity.z;
+
+            const speed = Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime * 10000;
+
+            if (speed > SHAKE_THRESHOLD) {
+                alert('最后，我认真了！！！谢谢你承起感情重担的部分，愿意理解包容保护我的小脾气和各种，我很庆幸我能遇见一个这样的男人！XXX，我爱你！——想要和你拥有以后的112025年5月6日');
+                // 在这里可以添加更多操作，比如刷新页面、显示信息等
+            }
+
+            lastX = x;
+            lastY = y;
+            lastZ = z;
+        }
+    }
+
+    window.addEventListener('devicemotion', deviceShaken, true);
+
+</script>
+</html>
