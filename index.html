@@ -104,35 +104,35 @@ function handleDoubleClick() {
   document.getElementById('loveHeart').textContent = '';
 }
 
-// 设定一个阈值，当超过这个值时认为发生了晃动
-    const SHAKE_THRESHOLD = 10;
-    let lastUpdate = 0;
-    let x = y = z = lastX = lastY = lastZ = 0;
-
-    function deviceShaken(event) {
-        const currentTime = new Date().getTime();
-        if ((currentTime - lastUpdate > 100)) {
-            const diffTime = currentTime - lastUpdate;
-            lastUpdate = currentTime;
-
-            x = event.accelerationIncludingGravity.x;
-            y = event.accelerationIncludingGravity.y;
-            z = event.accelerationIncludingGravity.z;
-
-            const speed = Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime * 10000;
-
-            if (speed > SHAKE_THRESHOLD) {
-                alert('最后，我认真了！！！谢谢你承起感情重担的部分，愿意理解包容保护我的小脾气和各种，我很庆幸我能遇见一个这样的男人！XXX，我爱你！——想要和你拥有以后的112025年5月6日');
-                // 在这里可以添加更多操作，比如刷新页面、显示信息等
+function handleMotion(event) {
+        const acceleration = event.accelerationIncludingGravity;
+        if (acceleration.x !== null && acceleration.y !== null && acceleration.z !== null) {
+            // 这里处理加速度数据以判断是否发生了晃动
+            // 简化的逻辑，实际应用中你可能需要更复杂的算法
+            const threshold = 15; // 设定一个阈值
+            if (Math.abs(acceleration.x) > threshold || Math.abs(acceleration.y) > threshold || Math.abs(acceleration.z) > threshold) {
+                alert('设备被晃动了！');
             }
-
-            lastX = x;
-            lastY = y;
-            lastZ = z;
         }
     }
 
-    window.addEventListener('devicemotion', deviceShaken, true);
+    document.getElementById('startShakeDetection').addEventListener('click', function() {
+        if (window.DeviceMotionEvent) {
+            if (typeof DeviceMotionEvent.requestPermission === 'function') {
+                DeviceMotionEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener('devicemotion', handleMotion, true);
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                window.addEventListener('devicemotion', handleMotion, true);
+            }
+        } else {
+            console.log("浏览器不支持 devicemotion 事件");
+        }
+    });
 
 </script>
 </html>
