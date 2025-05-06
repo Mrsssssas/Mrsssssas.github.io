@@ -64,7 +64,7 @@
   <div class="message">
     <div class="heart" id="loveHeart" onclick="handleDoubleClick()"  >❤️</div>
     <pre  id="loveMessage" ></pre>
-<button id="startShakeDetection">开始检测晃动</button>
+
 
 
   </div>
@@ -111,12 +111,12 @@ function handleMotion(event) {
             // 简化的逻辑，实际应用中你可能需要更复杂的算法
             const threshold = 15; // 设定一个阈值
             if (Math.abs(acceleration.x) > threshold || Math.abs(acceleration.y) > threshold || Math.abs(acceleration.z) > threshold) {
-                alert('设备被晃动了！');
+                alert('最后，我认真了！！！谢谢你承起感情重担的部分，愿意理解包容保护我的小脾气和各种，我很庆幸我能遇见一个这样的男人！XXX，我爱你！——想要和你拥有以后的112025年5月6日！');
             }
         }
     }
 
-    document.getElementById('startShakeDetection').addEventListener('click', function() {
+    document.getElementById('loveHeart').addEventListener('click', function() {
         if (window.DeviceMotionEvent) {
             if (typeof DeviceMotionEvent.requestPermission === 'function') {
                 DeviceMotionEvent.requestPermission()
